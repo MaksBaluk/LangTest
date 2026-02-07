@@ -1,5 +1,8 @@
-from .service import add
+import pytest
+
+from app.modules.health import HealthResponse, get_health_service
 
 
-def test_add():
-    assert add(1, 2) == 3
+@pytest.mark.anyio
+async def test_health_check():
+    assert await get_health_service().health_check() == HealthResponse(status="ok")
